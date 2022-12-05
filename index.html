@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Demo Web AR</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+
+    <!-- import cdn min ar js -->
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+
+
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+
+    <!-- a-scene : récupère targets.mind -->
+    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false" mindar-image="filterMinCF:100; filterBeta: 10"
+        mindar-image="warmupTolerance: 10" mindar-image="missTolerance: 10">
+
+        <!-- initialise la caméra  -->
+        <a-camera position="0 0 0" look-controls="enabled: false" position="0 0 0" look-controls="enabled: false"
+            cursor="fuse: false; rayOrigin: mouse;" raycaster="far: ${customFields.libVersion}; objects: .clickable">
+        </a-camera>
+
+        <!-- a-entity : détecte et suit l'image -->
+        <a-entity mindar-image-target="targetIndex: 0">
+
+            <!-- import gltf model -->
+            <a-gltf-model id="glb" class="clickable" rotation="0 0 0" position="0 0 0.1" scale="0.5 0.5 0.5"
+                src="cece.glb">
+            </a-gltf-model>
+
+        </a-entity>
+
+    </a-scene>
+
+
+    <script>
+        const a_gltf_model = document.querySelector("#glb");
+        let toggle = true
+        a_gltf_model.addEventListener("click", () => {
+            if (toggle == true) {
+                a_gltf_model.setAttribute("src", "cece.glb");
+                toggle = false;
+            }
+            else {
+                a_gltf_model.setAttribute("src", "cece.glb");
+                toggle = true;
+            }
+
+
+        })
+    </script>
+
+</body>
+
+</html>
